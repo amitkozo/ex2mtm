@@ -12,7 +12,14 @@ void Card::applyEncounter(Player& player) const
 {
     if(m_effect == CardType::Buff)
     { 
-        player.buff(m_stats.buff);
+        if (player.pay(m_stats.cost))
+        {
+          player.buff(m_stats.buff);
+        }
+        else
+        {//benjo they told us to print thiw messege if there is not enoght coin to pay, but we dont have the libery for it.
+           // std::cout << "Not enough coins"<<;
+        }
 
     }
     else if(m_effect == CardType::Battle)
@@ -71,4 +78,4 @@ void Card::printInfo() const
     }      
 }        
 
-//**************** AMIT ADD THE LATES COMMENT IN 2.12.22 *******************//
+//**************** AMIT ADD THE LATES COMMENT IN 3.12.22 *******************//
