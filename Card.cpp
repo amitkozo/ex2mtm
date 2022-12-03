@@ -3,19 +3,19 @@
 //Constructor card. evrey object get his type and his structs of stats.
 //The copy constructor , the destructor and the assignment operator is card.h.
 Card::Card(CardType type, const CardStats& stats) :
-                    m_effects(type),
+                    m_effect(type),
                     m_stats(stats)
                     {}
 
 //Getting the card type and make the turn according to his type and player stats.
 void Card::applyEncounter(Player& player) const
 {
-    if(m_effects == CardType::Buff)
+    if(m_effect == CardType::Buff)
     { 
         player.buff(m_stats.buff);
 
     }
-    else if(m_effects == Battle)
+    else if(m_effect == CardType::Battle)
     { 
     bool res;
         if(player.getAttackStrength()>= m_stats.force)
@@ -26,16 +26,16 @@ void Card::applyEncounter(Player& player) const
         }
         else
         {
-            player.damage(m_stats.hpLoss);
+            player.damage(m_stats.hpLossOnDefeat);
             res = false;
         }
         printBattleResult(res);
     }  
-    else if(m_effects == CardType::Heal)
+    else if(m_effect == CardType::Heal)
     { 
         player.heal(m_stats.heal);
     }
-    else if(m_effects == CardType::Treasure)
+    else if(m_effect == CardType::Treasure)
     { 
         player.addCoins(m_stats.loot);
     }
@@ -49,21 +49,22 @@ void Card::applyEncounter(Player& player) const
 //printing card data.
 void Card::printInfo() const
 {
-     if(m_effects == CardType::Buff)
+     if(m_effect == CardType::Buff)
     { //
           printBuffCardInfo(m_stats);
     }
-    else if(m_effects == Battle)
+    else if(m_effect == CardType::Battle)
     { //
           printBattleCardInfo(m_stats);
     }  
-    else if(m_effects == CardType::Heal)
+    else if(m_effect == CardType::Heal)
+
     { //
           printHealCardInfo(m_stats);
     }
-    else if(m_effects == CardType::Treasure)
+    else if(m_effect == CardType::Treasure)
     { //
-          printTreausureCardInfo(m_stats);
+          printTreasureCardInfo(m_stats);
     }
     else{//Shouldn't get here
         return;
