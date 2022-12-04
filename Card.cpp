@@ -5,7 +5,9 @@
 Card::Card(CardType type, const CardStats& stats) :
                     m_effect(type),
                     m_stats(stats)
-                    {}
+                    {
+                        
+                    }
 
 //Getting the card type and make the turn according to his type and player stats.
 void Card::applyEncounter(Player& player) const
@@ -17,8 +19,8 @@ void Card::applyEncounter(Player& player) const
           player.buff(m_stats.buff);
         }
         else
-        {//benjo they told us to print thiw messege if there is not enoght coin to pay, but we dont have the libery for it.
-           // std::cout << "Not enough coins"<<;
+        {//Nothing
+            
         }
 
     }

@@ -4,7 +4,7 @@
 #ifndef EX2_Player_H
 #define EX2_Player_H
 
-
+#include <string>
 #include "utilities.h"
 
 class Player{
@@ -23,8 +23,8 @@ class Player{
      * @return
      *      A new instance of Player.
     */
-   Player(std::string name, int max_HP , int force , int level ,
-    int coins , int HP);
+   Player(const std::string name, int max_HP = INITIAL_MAX_HP , int force  = INITIAL_FORCE, int level = 1 ,
+    int coins = 0 , int HP = INITIAL_MAX_HP);
 
    /*
      * Copy C'tor of Player class
@@ -50,7 +50,8 @@ class Player{
     static const int INITIAL_FORCE = 5;
     static const int MAX_LEVEL = 10;
     static const int INITIAL_MAX_HP = 100;
-
+    static const int STARTING_LEVEL = 1;
+    static const int STARTING_COINS = 0;
 
     /*
      * @brief printing the Player info.
@@ -151,11 +152,12 @@ class Player{
 
     private:
         std::string m_name;
-        int m_level;
-        int m_force;
         int m_maxHP;
-        int m_HP;
+        int m_force;                
+        int m_level;
         int m_coins;
+        int m_HP;
+
 }
 ;
 #endif //EX2_Player_H

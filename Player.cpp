@@ -3,14 +3,21 @@
 #include <string>
 
 //Player constructor. inizialized by inizializetion list.
-Player::Player(std::string name, int max_HP = INITIAL_MAX_HP , int force = INITIAL_FORCE , int level,
+Player::Player(const std::string name, int max_HP  , int force , int level,
     int coins, int HP):   
-                    m_name(std::string(name)),
+                    m_name(name),
                     m_maxHP(max_HP),
                     m_force(force),
-                    m_level(1),
-                    m_coins(0),
-                    m_HP(max_HP){}
+                    m_level(STARTING_LEVEL),
+                    m_coins(STARTING_COINS),
+                    m_HP(max_HP){
+                        //Invalid inputs
+                        if( m_maxHP <= 0){ 
+                            m_maxHP = INITIAL_MAX_HP;
+                            m_HP = INITIAL_MAX_HP;
+                        }
+                        m_force = ( m_force < 0 ? INITIAL_FORCE : m_force);
+                    }
     
 
 //copy consstructor. inizialize new Player object and give him the same data as the argument.
@@ -48,7 +55,7 @@ bool Player::levelUp(){
 int Player::getLevel() const{
     assert(m_level <= 10);
     return m_level;
-};
+}
 
 // If Player has won the battle this function will add him point to his force. 
 void Player::buff(int amount){
