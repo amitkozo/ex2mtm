@@ -23,7 +23,7 @@ class Player{
      * @return
      *      A new instance of Player.
     */
-   Player(const std::string name, int max_HP = INITIAL_MAX_HP , int force  = INITIAL_FORCE, int level = 1 ,
+   Player(const std::string name, int maxHP = INITIAL_MAX_HP , int force  = INITIAL_FORCE, int level = 1 ,
     int coins = 0 , int HP = INITIAL_MAX_HP);
 
    /*
@@ -80,6 +80,45 @@ class Player{
     */
    
     int getLevel() const;
+
+
+  /*
+     * @brief 
+        retures the Player's HP.
+     * @return
+     *      int Player's HP.
+    */
+   
+    int getHP() const;
+
+
+
+  /*
+     * @brief 
+        retures the Player's coins.
+     * @return
+     *      int Player's coins.
+    */
+   
+    int getCoins() const;
+
+  /*
+     * @brief 
+        retures the Player's force.
+     * @return
+     *      int Player's force.
+    */
+   
+    int getForce() const;
+    
+  /*
+     * @brief 
+        retures the Player's name.
+     * @return
+     *      const char* Player's name.
+    */
+   
+    const char* getName() const;
 
     /*
      *@brief 

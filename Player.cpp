@@ -3,14 +3,14 @@
 #include <string>
 
 //Player constructor. inizialized by inizializetion list.
-Player::Player(const std::string name, int max_HP  , int force , int level,
+Player::Player(const std::string name, int maxHP  , int force , int level,
     int coins, int HP):   
                     m_name(name),
-                    m_maxHP(max_HP),
+                    m_maxHP(maxHP),
                     m_force(force),
                     m_level(STARTING_LEVEL),
                     m_coins(STARTING_COINS),
-                    m_HP(max_HP){
+                    m_HP(maxHP){
                         //Invalid inputs
                         if( m_maxHP <= 0){ 
                             m_maxHP = INITIAL_MAX_HP;
@@ -38,9 +38,9 @@ void Player::printInfo() const{
 
 //if level is below 10 we add plus 1 to player->level. return true if the function add 1, false other.
 bool Player::levelUp(){
-    assert(m_level>= 0 && m_level < 10);
+    assert(m_level>= 0 && m_level < MAX_LEVEL);
 
-    if(m_level >= 10){
+    if(m_level >= MAX_LEVEL){
         return false;
     }
     else{
@@ -53,8 +53,31 @@ bool Player::levelUp(){
 
 //getting Player level. 
 int Player::getLevel() const{
-    assert(m_level <= 10);
+    assert(m_level <= MAX_LEVEL);
     return m_level;
+}
+
+//getting Player's HP. 
+int Player::getHP() const{
+    assert(m_HP >= 0);
+    return m_HP;
+}
+
+//getting Player Coins. 
+int Player::getCoins() const{
+    assert(m_coins >= 0);
+    return m_coins;
+}
+
+//getting Player Force. 
+int Player::getForce() const{
+    return m_force;
+}
+
+const char* Player::getName() const{
+    //std::string tempStr = m_name;
+    //return tempStr.std::string::c_str();
+    return m_name.std::string::c_str();
 }
 
 // If Player has won the battle this function will add him point to his force. 
@@ -66,7 +89,7 @@ void Player::buff(int amount){
     m_force+=amount;
 }
 
-//This function adding healing points to the player(class) heal field. note that there is limit HP == MAX_HP.
+//This function adding healing points to the player(class) heal field. note that there is limit HP == maxHP.
 //**Return true if  ------ BENJO WTF??  benjo look at the second if , it is not needed to be true??
 bool Player::heal(int amount){
     if (amount < 0)
