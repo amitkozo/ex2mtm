@@ -41,8 +41,13 @@ void Card::applyEncounter(Player& player) const
         printBattleResult(res);
     }  
     else if(m_effect == CardType::Heal)
-    { 
+    {   
+        if(player.pay(m_stats.cost)){
         player.heal(m_stats.heal);
+        }
+        else{
+            //Nothing happens
+        }
     }
     else if(m_effect == CardType::Treasure)
     { 

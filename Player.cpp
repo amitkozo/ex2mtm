@@ -38,7 +38,7 @@ void Player::printInfo() const{
 
 //if level is below 10 we add plus 1 to player->level. return true if the function add 1, false other.
 bool Player::levelUp(){
-    assert(m_level>= 0 && m_level < MAX_LEVEL);
+    assert(m_level>= 0 && m_level <= MAX_LEVEL);
 
     if(m_level >= MAX_LEVEL){
         return false;
