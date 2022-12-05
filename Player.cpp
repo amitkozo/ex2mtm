@@ -80,7 +80,7 @@ const char* Player::getName() const{
     return m_name.std::string::c_str();
 }
 
-// If Player has won the battle this function will add him point to his force. 
+// If Player has purchased a buff card, this func will add to his force.
 void Player::buff(int amount){
     if (amount < 0)
     {
@@ -89,8 +89,7 @@ void Player::buff(int amount){
     m_force+=amount;
 }
 
-//This function adding healing points to the player(class) heal field. note that there is limit HP == maxHP.
-//**Return true if  ------ BENJO WTF??  benjo look at the second if , it is not needed to be true??
+//
 bool Player::heal(int amount){
     if (amount < 0)
     {
@@ -150,9 +149,9 @@ void Player::addCoins(int amount){
 //This function take some Player coins if possible.
 //return true if the function took coins or amount =0, false other.
 bool Player::pay(int amount){
-    if (amount < 0)
+    if (amount <= 0)
     {
-        amount = 0;
+        return true;
     }
     if(m_coins >= amount)
     {

@@ -11,7 +11,7 @@ Mtmchkin::Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCard
 
 //default destructor
 
-int Mtmchkin::m_indexCounter;
+int Mtmchkin::m_indexCounter = 0;
 
 void Mtmchkin::playNextCard(){
 
