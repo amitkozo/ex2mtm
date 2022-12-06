@@ -26,22 +26,25 @@ Mtmchkin::Mtmchkin(const Mtmchkin& game):
             m_indexCounter(game.m_indexCounter),
             m_gameStatus(game.m_gameStatus)
     {
-    for (int i=0; i < numOfCards; ++i){
+    for (int i=0; i < m_numOfCards; ++i){
         m_cardsArray[i] = game.m_cardsArray[i];
     }               
     
 }
 
 
-Mtmchkin& operator=(const Mtmchkin& game){
+Mtmchkin& Mtmchkin::operator=(const Mtmchkin& game)
+{
     m_player = game.m_player; 
     m_cardsArray = new Card[game.m_numOfCards];
     m_numOfCards = game.m_numOfCards;
     m_indexCounter = game.m_indexCounter;
     m_gameStatus = game.m_gameStatus;
-    for (int i=0; i < game.m_numOfCards; ++i){
+    for (int i=0; i < game.m_numOfCards; ++i)
+    {
         m_cardsArray[i] = game.m_cardsArray[i];
     }  
+    return *this;
 }
 
 
@@ -63,20 +66,24 @@ void Mtmchkin::playNextCard()
    
 }
 
- bool Mtmchkin::isOver() const{ 
+ bool Mtmchkin::isOver() 
+ { 
     if(m_player.getLevel() == Player::MAX_LEVEL)
-    {   m_GameStatus = GameStatus::Win;
+    {   
+        m_gameStatus = GameStatus::Win;
         return true;
     }
 
     if (m_player.isKnockedOut())
-    {   m_GameStatus = GameStatus::Loss;
+    {  
+         m_gameStatus = GameStatus::Loss;
         return true;
     }
   
     return false;
  }
 
- GameStatus Mtmchkin::getGameStatus() const{
+ GameStatus Mtmchkin::getGameStatus() const
+ {
     return m_gameStatus;
  }
