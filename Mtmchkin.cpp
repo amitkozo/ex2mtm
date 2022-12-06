@@ -3,42 +3,74 @@
 //Constructor
 Mtmchkin::Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards):
             m_player(playerName),
-            m_cardsArray(cardsArray),
-            m_numOfCards(numOfCards)
-{
+            m_cardsArray(new Card[numOfCards]), 
+            m_numOfCards(numOfCards),
+            m_indexCounter(0),
+            m_gameStatus(GameStatus::MidGame)
+{   
+    for (int i=0; i < numOfCards;  ++i){
+        m_cardsArray[i] = cardsArray[i];
+    }
 
 }
 
-//default destructor
+//D'tor
+Mtmchkin::~Mtmchkin(){
+    delete[] m_cardsArray;
+}
+//Copy c'tor
+Mtmchkin::Mtmchkin(const Mtmchkin& game): 
+            m_player(game.m_player), 
+            m_cardsArray(new Card[game.m_numOfCards]),
+            m_numOfCards(game.m_numOfCards),
+            m_indexCounter(game.m_indexCounter),
+            m_gameStatus(game.m_gameStatus)
+    {
+    for (int i=0; i < numOfCards; ++i){
+        m_cardsArray[i] = game.m_cardsArray[i];
+    }               
+    
+}
 
-int Mtmchkin::m_indexCounter = 0;
 
-void Mtmchkin::playNextCard(){
+Mtmchkin& operator=(const Mtmchkin& game){
+    m_player = game.m_player; 
+    m_cardsArray = new Card[game.m_numOfCards];
+    m_numOfCards = game.m_numOfCards;
+    m_indexCounter = game.m_indexCounter;
+    m_gameStatus = game.m_gameStatus;
+    for (int i=0; i < game.m_numOfCards; ++i){
+        m_cardsArray[i] = game.m_cardsArray[i];
+    }  
+}
 
-    if(getGameStatus() != GameStatus::MidGame){//Game's over
-        return; 
-    }
 
-    if(m_indexCounter == m_numOfCards)
+void Mtmchkin::playNextCard()
+{
+     
+    // if(m_gameStatus != GameStatus::MidGame){//Game's over
+    //     return; 
+    // }
+
+    if(m_indexCounter == m_numOfCards) //Guarantees cyclic nature of deck
     {
         m_indexCounter = 0 ;
     }
-    m_cardsArray[m_indexCounter].printInfo();
+    m_cardsArray[m_indexCounter].printInfo();   //prints Card info
     m_cardsArray[m_indexCounter].applyEncounter(m_player);
-    printPlayerInfo(m_player.getName(), m_player.getLevel(), m_player.getForce(),
-     m_player.getHP(), m_player.getCoins());
-    m_indexCounter++;
+    m_player.printInfo(); //prints Player info post encounter
+    m_indexCounter++; //Equivalent to removing the played card from top of deck
    
 }
 
- bool Mtmchkin::isOver() const{ //How to know which player?
+ bool Mtmchkin::isOver() const{ 
     if(m_player.getLevel() == Player::MAX_LEVEL)
-    {
+    {   m_GameStatus = GameStatus::Win;
         return true;
     }
 
     if (m_player.isKnockedOut())
-    {
+    {   m_GameStatus = GameStatus::Loss;
         return true;
     }
   
@@ -46,18 +78,5 @@ void Mtmchkin::playNextCard(){
  }
 
  GameStatus Mtmchkin::getGameStatus() const{
-    if(isOver()){
-        if (!m_player.isKnockedOut())
-        {
-            return GameStatus::Win;
-        }
-        else
-        {
-            return GameStatus::Loss;
-        }
-    }
-    else
-    {
-        return GameStatus::MidGame;
-    }
+    return m_gameStatus;
  }

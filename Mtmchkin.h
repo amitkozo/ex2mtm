@@ -30,6 +30,17 @@ public:
     Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards);
 
 
+    //copy ctor
+    Mtmchkin(const Mtmchkin& game);             //Need to allocate new cardsArray
+    //assignment operator 
+    Mtmchkin& operator=(const Mtmchkin& game); //Need to allocate new cardsArray
+     /*
+     * D'tor of the game:
+     */
+    ~Mtmchkin();
+
+    Mtmchkin() = delete; //We won't be using argument-less constructor
+
     /*
      * Play the next Card - according to the instruction in the exercise document
      *
@@ -61,9 +72,10 @@ public:
 private:
     //TODO: complete the Mtmchkin class.
     Player m_player;
-    const Card* m_cardsArray;
+    Card* m_cardsArray;
     int m_numOfCards;
-    static int m_indexCounter;
+    int m_indexCounter;
+    GameStatus m_gameStatus;
     
 };
 
